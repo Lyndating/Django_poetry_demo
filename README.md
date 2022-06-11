@@ -21,6 +21,13 @@ https://rasulkireev.com/managing-django-with-poetry/
 9.  create app in the same directory
       `poetry run python manage.py startapp polls`
       
-1.  
+10. database setup
+      `poetry run python manage.py migrate`
+      to create all necessary database tables based on `INSTALLED_APPS` under the `settings.py` file
+11. check database tables
+      `sqlite3 db.sqlite3`
+      `SELECT * FROM table_name`
+      `.schema table_name`
+1.   
 
 
