@@ -93,7 +93,16 @@ https://rasulkireev.com/managing-django-with-poetry/
 21.  render() as a shortcut
 22.  `from django.shortcuts import render`
       `return render(request, "polls/index.html", context)`
-23.  
+23.  raise 404 error
+      `from django.http import Http404`
+      use `try...except..else` block to raise error.
+      then return render content and pass question object
+      `return render(request, "polls/details.html", {"question": question})`.
+24.  shortcuts - get_object_or_404
+      `from django.shortcuts import get_object_or_404`
+      use the shortcuts to call get() function and take Query.set and other arguments and raise Http404 if the object doesn't exist.
+      `question = get_object_or_404(Question, pk=question_id)`.
+1.   dd
 
 
-
+\
