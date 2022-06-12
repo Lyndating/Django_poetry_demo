@@ -86,7 +86,14 @@ https://rasulkireev.com/managing-django-with-poetry/
       `return HttpResponse("response msg")`
     * in urls.py:
       `urlpatterns =[... path("/<type:argument>/", views.function_name, name="function_name"),]`
-20.  
+20.  use template to render html file
+      `loader.get_template(html_file)`
+      `context = {"variable_name": python_objects}`
+      `return HttpResponse(template.render(context, request))`
+21.  render() as a shortcut
+22.  `from django.shortcuts import render`
+      `return render(request, "polls/index.html", context)`
+23.  
 
 
 
