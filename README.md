@@ -102,6 +102,7 @@ https://rasulkireev.com/managing-django-with-poetry/
       `from django.shortcuts import get_object_or_404`
       use the shortcuts to call get() function and take Query.set and other arguments and raise Http404 if the object doesn't exist.
       `question = get_object_or_404(Question, pk=question_id)`.
+      * there is another `get_list_or_404()` function, which using `filter()`instead of `get()` and raise 404 if the list is empty.
 1.   dd
 
 
