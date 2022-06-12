@@ -1,17 +1,20 @@
 from django.http import HttpResponse
 from django.template import loader
+from django.shortcuts import render
 from .models import Question
 
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    # indices from 0 to 4
-    template = loader.get_template('polls/index.html')
+    # indices from 0 to 4, order by reverse way using "-" before the column name
+
+    # template = loader.get_template('polls/index.html')
     context = {
         "latest_question_list": latest_question_list,
     }
     # load the template under html file and pass it a context dictionary. 
-    return HttpResponse(template.render(context, request))
+    # return HttpResponse(template.render(context, request))
     
+    return render(request, "polls/index.html", context)
 
 # we need to map the view to a URL (URLconf)
 
