@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import Http404
 from django.template import loader
 from django.shortcuts import render
 from .models import Question
@@ -22,8 +22,13 @@ def index(request):
 # they take an argument
 def detail(request, question_id):
     #print (request): <WSGIRequest: GET '/polls/1/'>
-    return HttpResponse("You are looking at question %s." % question_id)
+    # return HttpResponse("You are looking at question %s." % question_id)
     # %s operator let you add value into python string. the value after the % sign will be replaced to that place.
+    try:
+        question = Question.objects.get(pk=question_id)
+    except Question.DoesNotExist:
+        raise Http404("Question does not exist")
+    return render(request,"polls/detail.html", {"question": question})
 
 def results(request, question_id):
     response ="You are looking at the results of question %s."
