@@ -76,7 +76,17 @@ https://rasulkireev.com/managing-django-with-poetry/
       * get return a single object. `<>`
       `Question.ojects.get(pub_date__year=current_year)`
       if there are more or none exist, it will raise an exception (Error msg)
-18.  
+
+18. create an admin user
+      `poetry run python manage.py createsuperuser`
+      `poetry run python manage.py runserver` and under `http:/127.0.0.1:8000/admin/` should see the admins'login page.
+19. add views and url paths
+    * in views.py:
+      `def function_name(request, argument):`
+      `return HttpResponse("response msg")`
+    * in urls.py:
+      `urlpatterns =[... path("/<type:argument>/", views.function_name, name="function_name"),]`
+20.  
 
 
 
