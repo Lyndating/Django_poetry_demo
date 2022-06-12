@@ -1,13 +1,17 @@
 from django.http import HttpResponse
+from django.template import loader
 from .models import Question
 
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     # indices from 0 to 4
-    output = ", ".join([q.question_text for q in latest_question_list])
-    # for...in loop through the array and 
-    # convert array to string with , seperated
-    return HttpResponse(output)
+    template = loader.get_template('polls/index.html')
+    context = {
+        "latest_question_list": latest_question_list,
+    }
+    # load the template under html file and pass it a context dictionary. 
+    return HttpResponse(template.render(context, request))
+    
 
 # we need to map the view to a URL (URLconf)
 
