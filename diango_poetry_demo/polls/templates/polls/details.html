@@ -1,6 +1,6 @@
 <form action="{% url 'polls:vote' question.id %}" method="post">
 {% csrf_token %}
-<!-- the server generates these tokens, links them to the user session and stores them in the database. They are then injected into any form presented to the clicent as a hidden field. -->
+<!-- the server generates these tokens, links them to the user session and stores them in the database. They are then injected into any form presented to the client as a hidden field. -->
 <fieldset>
     <legend>
         <h1>{{question.question_text}}</h1>

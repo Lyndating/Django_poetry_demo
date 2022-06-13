@@ -103,7 +103,16 @@ https://rasulkireev.com/managing-django-with-poetry/
       use the shortcuts to call get() function and take Query.set and other arguments and raise Http404 if the object doesn't exist.
       `question = get_object_or_404(Question, pk=question_id)`.
       * there is another `get_list_or_404()` function, which using `filter()`instead of `get()` and raise 404 if the list is empty.
-1.   dd
+25.  add app_name in urls.py to specify individual url path.
+      `app_name = 'polls'` before assign the `urlpatterns` array.
+26.  removing hardcoded URLS by using template tag `{% url%}`
+      `<a hrf="{% url "polls:detail" question_id %}">`
+27.  Request and response objects
+      * when page is requested, Django create an `HttpRequest` object that contains metadata about the the request. Then Djnago load the appropriate view, passing the `HttpRequest`as the first argument to the view function. 
+28.  csrf_token
+      * the server generates these tokens, links them to the user session and stores them in the database. 
+      * They are then injected into any form presented to the client as a hidden field.
+29.  ss
 
 
 \
