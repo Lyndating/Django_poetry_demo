@@ -122,6 +122,19 @@ https://rasulkireev.com/managing-django-with-poetry/
         `class ResultsView(generic.DetailView)`
         `model = Question`
         `template_name = 'polls/results.html'`
-      * amend
+30.  Automated Testing
+      * identify problems
+      * testing work done for you by the system
+      * you could check your code still working as originally intended even making changes.
+      * prevent the errors or problems 
+      * TDD: write testing before coding. 
 
-\
+31.  Running tests
+      * in `polls/tests.py` create a test to expose bugs
+      * running tests: `poetry run python manage.py test polls`
+      * `manage.py est polls` will find a subclass of `django.test.TestCase`and look for test methods - whose names begin with `test`
+      * create a Question instance and use `assertIS()` method to test
+32.  
+33.  s
+
+
