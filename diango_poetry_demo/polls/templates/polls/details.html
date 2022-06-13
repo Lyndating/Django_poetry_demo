@@ -1,6 +1,20 @@
-<h1>{{question.question_text}}</h1>
-<ul>
-    {% for choice in question.choice_set.all %}
-    <li>{{choice.choice_text}}</li>
+<form action="{% url 'polls:vote' question.id %}" method="post">
+{% csrf_token %}
+<!-- the server generates these tokens, links them to the user session and stores them in the database. They are then injected into any form presented to the clicent as a hidden field. -->
+<fieldset>
+    <legend>
+        <h1>{{question.question_text}}</h1>
+    </legend>
+    {% if error_message %}
+        <p><strong>{{error_message}}</strong></p>
     {% endif %}
-</ul>
+    <!-- value of each radio button is associated question choice's ID, name is the choice. -->
+    {% for choice in question.choice_set.all %}
+        <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{choice.id}}">
+        <!-- forloop.counter indicate how many times the for tag ahs gone through its loop -->
+        <label for="choice{{forloop.counter}}">{{choice.choice_text}}</label><br> 
+    {% endfor %}
+</fieldset>
+<input type="submit" value="Vote">
+</form>
+
