@@ -10,9 +10,10 @@
     {% endif %}
     <!-- value of each radio button is associated question choice's ID, name is the choice. -->
     {% for choice in question.choice_set.all %}
-        <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{choice.id}}">
-        <!-- forloop.counter indicate how many times the for tag ahs gone through its loop -->
-        <label for="choice{{forloop.counter}}">{{choice.choice_text}}</label><br> 
+        <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}">
+            <!-- forloop.counter indicate how many times the for tag ahs gone through its loop -->
+        <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br>
+        <p>Here is the choice</p>
     {% endfor %}
 </fieldset>
 <input type="submit" value="Vote">
