@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 # from django.template import loader
+from django.utils import timezone
 from django.urls import reverse
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
@@ -40,8 +41,12 @@ class IndexView(generic.ListView):
     context_object_name= 'latest_question_list'
 
     def get_queryset(self):
-        # return the last five published questions. 
-        return Question.objects.order_by('-pub_date')[:5]
+        # return the last five published questions, but not including future ones.
+        # check the date by comparing it with timezone.now()
+        return Question.objects.filter(
+                pub_date__lte = timezone.now()
+                # it returns a queryset contaings those pub_date is less than or equal to now
+            ).order_by('-pub_date')[:5]
 
 
 class DetailView(generic.DetailView):
