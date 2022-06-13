@@ -31,8 +31,8 @@ def detail(request, question_id):
 
 
 def results(request, question_id):
-    response ="You are looking at the results of question %s."
-    return HttpResponse(response % question_id)
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, "polls/results.html", {'question': question})
 
 def vote(request, question_id):
     question = get_object_or_404(Question,pk=question_id)
@@ -41,7 +41,7 @@ def vote(request, question_id):
         # here, request is an HttpRequest object.
     except(KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form
-        return render(request, 'polls/details.html', {
+        return render(request, 'polls/detail.html', {
             'question' : question,
             "error_message": "Your didn't select a choice."
             })
