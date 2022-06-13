@@ -112,7 +112,16 @@ https://rasulkireev.com/managing-django-with-poetry/
 28.  csrf_token
       * the server generates these tokens, links them to the user session and stores them in the database. 
       * They are then injected into any form presented to the client as a hidden field.
-29.  ss
+29.  Use Generic Views 
+      There are two generic views: `ListView` and `DetailView`.
+      * amend URLconf in urls.py
+        `path('<int:pk>/results', views.ResultsView.as_view(), name="results'),`
 
+      * amend views in views.py
+        `from django.views import generic`
+        `class ResultsView(generic.DetailView)`
+        `model = Question`
+        `template_name = 'polls/results.html'`
+      * amend
 
 \
