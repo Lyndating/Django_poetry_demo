@@ -1,5 +1,5 @@
 
-## Managing a Django project with poetry [django-demo-docs](https://www.djangoproject.com/start/)
+## Managing a Django project with poetry ([django-demo-docs](https://www.djangoproject.com/start/))
 
 1. install poetry
       `pip3 install --user poetry` 
