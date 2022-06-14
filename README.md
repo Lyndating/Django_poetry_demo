@@ -1,4 +1,4 @@
-https://rasulkireev.com/managing-django-with-poetry/
+[https://rasulkireev.com/managing-django-with-poetry/](https://www.djangoproject.com/start/)
 
 ## Managing a Django project with poetry
 
