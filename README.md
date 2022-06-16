@@ -134,7 +134,11 @@ https://rasulkireev.com/managing-django-with-poetry/
       * running tests: `poetry run python manage.py test polls`
       * `manage.py est polls` will find a subclass of `django.test.TestCase`and look for test methods - whose names begin with `test`
       * create a Question instance and use `assertIS()` method to test
-32.  
+32.  Running Django test client
+      * run test in the `shell` - setup the test env first: `poetry run python manage.py shell`
+        * `from django.test.utils import setup_test_environment`
+        * `setup_test_environment` - install template renderer to examine additional attributes on responses.
+        * `from django.test import Client` - create an instance: `client= Client()`
 33.  s
 
 
