@@ -43,9 +43,9 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         # return the last five published questions, but not including future ones.
         # check the date by comparing it with timezone.now()
-        return Question.objects.filter(
+        return Question.objects.filter(       
                 pub_date__lte = timezone.now()
-                # it returns a queryset contaings those pub_date is less than or equal to now
+                # it returns a queryset contaings those pub_date is less than or equal to now (_lte)
             ).order_by('-pub_date')[:5]
 
 
