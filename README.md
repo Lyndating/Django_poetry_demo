@@ -128,7 +128,7 @@
       * prevent the errors or problems 
       * TDD: write testing before coding. 
 
-31.  Running tests
+31.  Running tests in application 
       * in `polls/tests.py` create a test to expose bugs
       * running tests: `poetry run python manage.py test polls`
       * `manage.py est polls` will find a subclass of `django.test.TestCase`and look for test methods - whose names begin with `test`
@@ -138,6 +138,14 @@
         * `from django.test.utils import setup_test_environment`
         * `setup_test_environment` - install template renderer to examine additional attributes on responses.
         * `from django.test import Client` - create an instance: `client= Client()`
-33.  s
+33.  Running tests for ListView
+      * also using `Client` to create an instance and using `reverse` to generate Url from View Name, e.g.: `polls:index`.
+      * in `tests.py` to create a shorcut function to create new question for test.
+      * to create new question and take two arguments: `Question.objects.create(question_text=question_text, pub_date= time)`
+      * to create new test class: 
+        * create new question: `create_question(question_text="test q", days=num_input)`
+        * get response `self.client.get(reverse('polls:index'))`
+        * test: `self.assertQuerysetEqual(response.context['latest_question_list'], [question])`, or if no_question_test, it should return [] empty array, or if multiply questions_test, it should return an array of questions in reverse order.
+34.  Running tests for DetaillView
 
 
