@@ -113,6 +113,8 @@
       * They are then injected into any form presented to the client as a hidden field.
 29.  Use Generic Views 
       There are two generic views: `ListView` and `DetailView`.
+      * `DetailView` is executing `self.object` containg the object that view is operating upon.
+      * `ListView` is executing `self.object_list` containing the list of objects (usually, but not neccssarily a queryset) that view is operating upon. 
       * amend URLconf in urls.py
         `path('<int:pk>/results', views.ResultsView.as_view(), name="results'),`
 
