@@ -44,7 +44,8 @@ class IndexView(generic.ListView):
         # return the last five published questions, but not including future ones.
         # check the date by comparing it with timezone.now()
         return Question.objects.filter(       
-                pub_date__lte = timezone.now()
+                pub_date__lte = timezone.now(),
+                question_choice__isnull=False,
                 # it returns a queryset contaings those pub_date is less than or equal to now (_lte)
             ).order_by('-pub_date')[:5]
 
@@ -52,6 +53,9 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Question
     template_name = "polls/detail.html"
+    def get_queryset(self):
+        # excludes any questions that aren't published yet
+        return Question.objects.filter(pub_date__lte = timezone.now())
 
 
 class ResultsView(generic.DetailView):
@@ -59,6 +63,7 @@ class ResultsView(generic.DetailView):
     template_name = "polls/results.html"
 def vote(request, question_id):
     question = get_object_or_404(Question,pk=question_id)
+    print(question.choice_set.all)
     try: 
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
         # here, request is an HttpRequest object.
@@ -74,3 +79,4 @@ def vote(request, question_id):
         return HttpResponseRedirect(reverse('polls:results', args=(question.id, )))
         # this reverse() call will return a string like 'polls/:id/results/'
     
+
