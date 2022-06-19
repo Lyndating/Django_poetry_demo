@@ -1,4 +1,5 @@
 from django.http import HttpResponseRedirect
+
 # from django.template import loader
 from django.utils import timezone
 from django.urls import reverse
@@ -14,9 +15,9 @@ from .models import Question, Choice
 #     context = {
 #         "latest_question_list": latest_question_list,
 #     }
-#     # load the template under html file and pass it a context dictionary. 
+#     # load the template under html file and pass it a context dictionary.
 #     # return HttpResponse(template.render(context, request))
-    
+
 #     return render(request, "polls/index.html", context)
 
 # # we need to map the view to a URL (URLconf)
@@ -31,52 +32,57 @@ from .models import Question, Choice
 #     return render(request,"polls/detail.html", {"question": question})
 
 
-
 # def results(request, question_id):
 #     question = get_object_or_404(Question, pk=question_id)
 #     return render(request, "polls/results.html", {'question': question})
 
+
 class IndexView(generic.ListView):
-    template_name = 'polls/index.html'
-    context_object_name= 'latest_question_list'
+    template_name = "polls/index.html"
+    context_object_name = "latest_question_list"
 
     def get_queryset(self):
         # return the last five published questions, but not including future ones.
         # check the date by comparing it with timezone.now()
-        return Question.objects.filter(       
-                pub_date__lte = timezone.now(),
-                question_choice__isnull=False,
+        return (
+            Question.objects.filter(
+                pub_date__lte=timezone.now(),
+                choice__isnull=False,
                 # it returns a queryset contaings those pub_date is less than or equal to now (_lte)
-            ).order_by('-pub_date')[:5]
+            )
+            .distinct()
+            .order_by("-pub_date")[:5]
+        )
 
 
 class DetailView(generic.DetailView):
     model = Question
     template_name = "polls/detail.html"
+
     def get_queryset(self):
         # excludes any questions that aren't published yet
-        return Question.objects.filter(pub_date__lte = timezone.now())
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 
 class ResultsView(generic.DetailView):
     model = Question
     template_name = "polls/results.html"
-def vote(request, question_id):
-    question = get_object_or_404(Question,pk=question_id)
-    print(question.choice_set.all)
-    try: 
-        selected_choice = question.choice_set.get(pk=request.POST['choice'])
-        # here, request is an HttpRequest object.
-    except(KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form
-        return render(request, 'polls/detail.html', {
-            'question' : question,
-            "error_message": "Your didn't select a choice."
-            })
-    else:
-        selected_choice.votes +=1 
-        selected_choice.save()
-        return HttpResponseRedirect(reverse('polls:results', args=(question.id, )))
-        # this reverse() call will return a string like 'polls/:id/results/'
-    
 
+
+def vote(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    try:
+        selected_choice = question.choice_set.get(pk=request.POST["choice"])
+        # here, request is an HttpRequest object.
+    except (KeyError, Choice.DoesNotExist):
+        # Redisplay the question voting form
+        return render(
+            request,
+            "polls/detail.html",
+            {"question": question, "error_message": "Your didn't select a choice."},
+        )
+    else:
+        selected_choice.votes += 1
+        selected_choice.save()
+        return HttpResponseRedirect(reverse("polls:results", args=(question.id,)))
+        # this reverse() call will return a string like 'polls/:id/results/'
